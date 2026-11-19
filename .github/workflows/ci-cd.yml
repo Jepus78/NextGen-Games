@@ -1,0 +1,30 @@
+name: NextGen Games CI/CD (EP3)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Entrenar modelo ML y ejecutar suite Pytest (12 casos)
+        run: |
+          python -m src.train
+          pytest -v
+
+      - name: Construir imagen Docker de inferencia
+        run: docker build -t nextgen-games-api:latest .

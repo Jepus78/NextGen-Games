@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+artifacts/*.pkl
+artifacts/*.json
+!artifacts/.gitkeep
+.venv/
+venv/
+*.log
+locust_report*
