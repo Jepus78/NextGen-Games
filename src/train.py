@@ -7,6 +7,8 @@ from pathlib import Path
 import joblib
 import numpy as np
 import pandas as pd
+import sklearn
+sklearn.set_config(working_memory=64)
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import HistGradientBoostingClassifier, HistGradientBoostingRegressor, IsolationForest
 from sklearn.impute import KNNImputer
@@ -180,7 +182,7 @@ def train_and_save(data_dir: str | Path = "data") -> dict:
         n_estimators=100,
         contamination=0.03,
         random_state=42,
-        n_jobs=-1,
+        n_jobs=1,
     )
     anomaly_detector.fit(X_train_transformed)
 
